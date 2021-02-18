@@ -1,0 +1,12 @@
+[AzureDevOps]
+TEAM_NAME = ExampleTeam
+PROJECT_NAME = ExampleProject
+
+API_URL = https://dev.azure.com/%(TEAM_NAME)s/%(PROJECT_NAME)s/_apis/git/repositories?api-version=6.0
+GIT_URL = https://dev.azure.com/%(TEAM_NAME)s/%(PROJECT_NAME)s/_git/
+
+[Credentials]
+;Can be left empty
+USERNAME = ''
+;Generate Personal Access Token (PAT) in Azure DevOps
+PERSONAL_ACCESS_TOKEN = ExampleToken

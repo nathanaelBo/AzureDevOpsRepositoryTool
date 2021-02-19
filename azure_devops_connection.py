@@ -66,3 +66,13 @@ def get_repository_info(repository_name):
 
 def open_repository(repository_name):
     webbrowser.open_new(GIT_URL + repository_name)
+
+
+def create_repository(repository_name):
+    try:
+        response = requests.post(API_URL, json={"name": repository_name}, auth=(
+            USERNAME, PERSONAL_ACCESS_TOKEN))
+        response.raise_for_status()
+        print("Repositoy created successfully")
+    except requests.exceptions.HTTPError:
+        print("Error " + str(response.status_code) + ": " + response.reason)

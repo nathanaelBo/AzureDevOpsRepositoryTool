@@ -1,12 +1,14 @@
 import argparse
 import azure_devops_connection
 
+
 def main():
     azure_devops_connection.init()
 
     parser = argparse.ArgumentParser(description='Open Azure DevOps Git Repo')
 
-    parser.add_argument('-o', '--open', type=str, required=False, dest='open_repository', action='store', choices=azure_devops_connection.REPOSITORIES, help='Öffnet ein Azure DevOps Repository im Browser')
+    parser.add_argument('-o', '--open', type=str, required=False, dest='open_repository', action='store',
+                        choices=azure_devops_connection.REPOSITORIES, help='Öffnet ein Azure DevOps Repository im Browser')
     parser.add_argument('-i', '--info', type=str, required=False,
                         dest='get_repository_info', action='store', choices=azure_devops_connection.REPOSITORIES,
                         help='Zeigt Infos für ein Azure DevOps Repository an')
@@ -24,6 +26,7 @@ def main():
         azure_devops_connection.print_repository_list()
     else:
         return
+
 
 if __name__ == '__main__':
     main()

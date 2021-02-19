@@ -1,4 +1,3 @@
-import base64
 import configparser
 import requests
 import webbrowser
@@ -29,16 +28,8 @@ def init():
     REPOSITORIES = get_repository_list_from_json(REPOSITORIES_JSON)
 
 
-def get_authorization_header():
-    authorization_string = USERNAME + ':' + PERSONAL_ACCESS_TOKEN
-    base64_authorization_string = base64.b64encode(
-        authorization_string.encode()).decode()
-    return {'Authorization': 'Basic %s' % base64_authorization_string}
-
-
 def get_json_from_api():
-    authorization_header = get_authorization_header()
-    return requests.get(API_URL, headers=authorization_header).json()['value']
+    return requests.get(API_URL, auth=(USERNAME, PERSONAL_ACCESS_TOKEN)).json()['value']
 
 
 def get_repository_list_from_json(json):

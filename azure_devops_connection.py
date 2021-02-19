@@ -25,21 +25,21 @@ def init():
     REPOSITORIES_JSON = get_json_from_api()
 
     global REPOSITORIES
-    REPOSITORIES = get_repository_list_from_json(REPOSITORIES_JSON)
+    REPOSITORIES = get_repository_list_from_repositories_json()
 
 
 def get_json_from_api():
     return requests.get(API_URL, auth=(USERNAME, PERSONAL_ACCESS_TOKEN)).json()['value']
 
 
-def get_repository_list_from_json(json):
+def get_repository_list_from_repositories_json():
     repositories = []
-    for element in json:
+    for element in REPOSITORIES_JSON:
         repositories.append(element['name'])
     return repositories
 
 
-def get_repository_from_json(repository_name):
+def get_repository_from_repositories_json(repository_name):
     repository = None
     for element in REPOSITORIES_JSON:
         if repository_name.lower() == element['name'].lower():
@@ -52,7 +52,7 @@ def print_repository_list():
 
 
 def get_repository_info(repository_name):
-    repository = get_repository_from_json(repository_name)
+    repository = get_repository_from_repositories_json(repository_name)
     repository_infos = []
 
     if repository != None:

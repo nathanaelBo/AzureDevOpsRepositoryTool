@@ -59,7 +59,7 @@ def get_repository_info(repository_name):
         repository_infos.append('SSH URL: ' + repository['sshUrl'])
         repository_infos.append('Web URL: ' + repository['webUrl'])
     else:
-        repository_infos = 'Nothing found'
+        repository_infos.append('Nothing found')
 
     print(*repository_infos, sep='\n')
 

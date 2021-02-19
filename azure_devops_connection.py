@@ -21,11 +21,11 @@ def init():
     global GIT_URL
     GIT_URL = config.get('AzureDevOps','GIT_URL')
 
-    global REPOS_JSON
-    REPOS_JSON = get_json_from_api()
+    global REPOSITORIES_JSON
+    REPOSITORIES_JSON = get_json_from_api()
 
-    global REPOS
-    REPOS = get_repo_list_from_json(REPOS_JSON)
+    global REPOSITORIES
+    REPOSITORIES = get_repository_list_from_json(REPOSITORIES_JSON)
 
 def get_authorization_header():
     authorization_string = USERNAME + ':' + PERSONAL_ACCESS_TOKEN
@@ -36,35 +36,35 @@ def get_json_from_api():
     authorization_header = get_authorization_header()
     return requests.get(API_URL, headers=authorization_header).json()['value']
 
-def get_repo_list_from_json(json):
-    repos = []
+def get_repository_list_from_json(json):
+    repositories = []
     for element in json:
-        repos.append(element['name'])
-    return repos
+        repositories.append(element['name'])
+    return repositories
 
-def print_repo_list():
-    print(*REPOS, sep=', ')
+def print_repository_list():
+    print(*REPOSITORIES, sep=', ')
 
 
-def get_repo_info(repo_name):
-    repo = None
-    repo_infos = []
+def get_repository_info(repository_name):
+    repository = None
+    repository_infos = []
 
-    for element in REPOS_JSON:
-        if repo_name.lower() == element['name'].lower():
-            repo = element
+    for element in REPOSITORIES_JSON:
+        if repository_name.lower() == element['name'].lower():
+            repository = element
 
-    if repo != None:
-        repo_infos.append('Name: ' + repo['name'])
-        repo_infos.append('Project: ' + repo['project']['name'])
-        repo_infos.append('Size: ' + size(repo['size']))
-        repo_infos.append('Remote URL: ' + repo['remoteUrl'])
-        repo_infos.append('SSH URL: ' + repo['sshUrl'])
-        repo_infos.append('Web URL: ' + repo['webUrl'])
+    if repository != None:
+        repository_infos.append('Name: ' + repository['name'])
+        repository_infos.append('Project: ' + repository['project']['name'])
+        repository_infos.append('Size: ' + size(repository['size']))
+        repository_infos.append('Remote URL: ' + repository['remoteUrl'])
+        repository_infos.append('SSH URL: ' + repository['sshUrl'])
+        repository_infos.append('Web URL: ' + repository['webUrl'])
     else:
-        repo_infos = 'Nothing found'
+        repository_infos = 'Nothing found'
 
-    print(*repo_infos, sep='\n')
+    print(*repository_infos, sep='\n')
 
-def open_repo(repo_name):
-    webbrowser.open_new(GIT_URL + repo_name)
+def open_repository(repository_name):
+    webbrowser.open_new(GIT_URL + repository_name)

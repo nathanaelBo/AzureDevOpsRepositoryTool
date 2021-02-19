@@ -39,17 +39,21 @@ def get_repository_list_from_json(json):
     return repositories
 
 
+def get_repository_from_json(repository_name):
+    repository = None
+    for element in REPOSITORIES_JSON:
+        if repository_name.lower() == element['name'].lower():
+            repository = element
+    return repository
+
+
 def print_repository_list():
     print(*REPOSITORIES, sep=', ')
 
 
 def get_repository_info(repository_name):
-    repository = None
+    repository = get_repository_from_json(repository_name)
     repository_infos = []
-
-    for element in REPOSITORIES_JSON:
-        if repository_name.lower() == element['name'].lower():
-            repository = element
 
     if repository != None:
         repository_infos.append('Name: ' + repository['name'])

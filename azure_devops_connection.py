@@ -48,7 +48,7 @@ def get_repository_from_repositories_json(repository_name):
 
 
 def print_repository_list():
-    print(*REPOSITORIES, sep=', ')
+    print(*sorted(REPOSITORIES), sep=', ')
 
 
 def get_repository_info(repository_name):

@@ -1,11 +1,11 @@
 import argparse
-import azure_devops_connection
+from azure_devops_connection import AzureDevOpsConnection
 import sys
 
 
 class AzureDevOpsRepositoryTool():
     def __init__(self):
-        azure_devops_connection.init()
+        self.azure_devops_connection = AzureDevOpsConnection()
 
         parser = argparse.ArgumentParser(
             description='Helper Tool for Azure DevOps Repositories')
@@ -23,19 +23,19 @@ class AzureDevOpsRepositoryTool():
         parser = argparse.ArgumentParser(
             description='Opens an Azure DevOps Repository in your default browser')
         parser.add_argument(
-            'repository', choices=azure_devops_connection.REPOSITORIES)
+            'repository', choices=self.azure_devops_connection.REPOSITORIES)
         args = parser.parse_args(sys.argv[2:])
 
-        azure_devops_connection.open_repository(args.repository)
+        self.azure_devops_connection.open_repository(args.repository)
 
     def info(self):
         parser = argparse.ArgumentParser(
             description='Shows information about an Azure DevOps Repository')
         parser.add_argument(
-            'repository', choices=azure_devops_connection.REPOSITORIES)
+            'repository', choices=self.azure_devops_connection.REPOSITORIES)
         args = parser.parse_args(sys.argv[2:])
 
-        azure_devops_connection.get_repository_info(args.repository)
+        self.azure_devops_connection.get_repository_info(args.repository)
 
     def create(self):
         parser = argparse.ArgumentParser(
@@ -43,12 +43,12 @@ class AzureDevOpsRepositoryTool():
         parser.add_argument('repository')
         args = parser.parse_args(sys.argv[2:])
 
-        azure_devops_connection.create_repository(args.repository)
+        self.azure_devops_connection.create_repository(args.repository)
 
     def list(self):
         parser = argparse.ArgumentParser(
             description='Lists all existing Azure DevOps Repositories')
-        azure_devops_connection.print_repository_list()
+        self.azure_devops_connection.print_repository_list()
 
 
 if __name__ == '__main__':
